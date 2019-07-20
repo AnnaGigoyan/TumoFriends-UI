@@ -21,6 +21,7 @@ export const createUser = (email, password, firstName, lastName, learningTargets
       })
     })
     .catch(err => {
+
       dispatch({
         type: 'CREATE_USER_ERROR',
         payload: getErrorMessage(err)
@@ -29,14 +30,31 @@ export const createUser = (email, password, firstName, lastName, learningTargets
   }
 }
 
-export const loginUser = () => {
+export const loginUser = (email, password) => {
   return dispatch => {
+    //console.log(`${apiHost}/students/${email}`);
+    axios.get(`${apiHost}/students/${email}`, {auth: {username: email, password: password}})
+    .then(response => {
+      sessionStorage.setItem('email',email);
+      sessionStorage.setItem('password',password);
+      //console.log(response.data);
+      dispatch({
+      type: "LOGIN_USER",
+      payload: response.data
+    })
+  })
+  .catch(err => {
+    dispatch({
+      type:"LOGIN_USER_ERROR",
+      payload:getErrorMessage(err)
+    })
+  })
     /**
      * TODO: Login Action
      * 1. Call Login API
      * 2. Set Session Storage
      * 3. Connect to Socket and emit login
-     * 4. Dispatch action LOGIN_USER
+     * 4. Dispatch action LOGIN_USER.
      * 5. Listen on Socket start-chat to dispatch start-chat
      */
     }
