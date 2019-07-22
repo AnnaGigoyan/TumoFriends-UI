@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Nav, Navbar} from 'react-bootstrap';
+import {Nav, Navbar,Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import tumoLogoArm from './tumo-logo-arm.png';
 import ProfileIcon from './ProfileIcon';
@@ -9,7 +9,8 @@ import SearchIcon from './SearchIcon';
 
 import './navigationbar.css';
 
-export default ({user, location}) => (
+
+export default ({user, location,logoutUser}) => (
   <div className="global-nav">
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <LinkContainer to="/">
@@ -18,7 +19,7 @@ export default ({user, location}) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {
-            // user.data ? (
+             user.data ? (
               <span>
                 <span className="ml-4 nav-icon">
                   <LinkContainer to="/profile">
@@ -36,17 +37,22 @@ export default ({user, location}) => (
                   </LinkContainer>
                 </span>
               </span>
-            // ) : null
+            ) : null
           }
         </Nav>
       </Navbar.Collapse>
       {
-        /**
-         * TODO: When user logged in
-         * 1. Text Hello [user first name]!
-         * 2. Button to logout user
-         * 3. If connected to peer a button to chat
-         */
+         
+        user.data ? ( 
+          <span>
+            <span className="ml-auto">
+        <span className='text-white'>Hello {user.data.firstName}</span>
+        
+        </span>
+        <LinkContainer to="/"><Button onClick={() => {logoutUser(user.data);}} className="ml-2" variant="outline-warning">Logout</Button></LinkContainer> 
+        </span>
+        ):null
+     
       }
     </Navbar>
   </div>
