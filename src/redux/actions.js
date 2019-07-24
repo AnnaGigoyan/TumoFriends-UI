@@ -94,7 +94,12 @@ export const imReceiver = () => ({
 
 
 export const startChat = (withUser) => {
-  // TODO: action creator to start chat
+  return dispatch => {
+    dispatch({
+      type: 'START_CHAT',
+      withUser,
+    });
+  };
 }
 
 export const stopChat = () => {

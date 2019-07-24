@@ -29,14 +29,19 @@ const user = (state = {data: null, error: null}, action) => {
 // TODO: reducer for networking with peer - start/stop chat
 const network = (state = {withUser: null, receiver: false}, action) => {
   switch(action.type) {
-    /**
-     * TODO: add reducer for
-     * 1. Starting Chat
-     * 2. Stopping Chat
-     * 3. Logging out user
-     */
-    default:
-      return state;
+   
+      case 'START_CHAT':
+        return { ...state, withUser: action.withUser }
+      case 'IM_THE_RECEIVE':
+        return { ...state, receiver: true }
+      case 'STOP_CHAT':
+      case 'LOGOUT_USER':
+        return { withUser: null, receiver: false }
+      default:
+        return state;
+    
+     
+   
   }
 }
 
