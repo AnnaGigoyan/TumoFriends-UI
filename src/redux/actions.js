@@ -42,6 +42,11 @@ export const loginUser = (email, password) => {
           email,
           password
         })
+        users.on('start-chat', fromUser => {
+          // console.log('start-chat', fromUser);
+          startChat(fromUser)(dispatch);
+          dispatch(imReceiver());
+        });
         dispatch({
           type: "LOGIN_USER",
           payload: response.data

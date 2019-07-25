@@ -3,7 +3,7 @@ import {startChat} from '../../redux/actions'
 import Search from './Search';
 
 const mapStateToProps = state => ({
-  user: state.user.data,
+  currentUser: state.user.data,
   userError: state.user.error
 })
 
